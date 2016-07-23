@@ -4,19 +4,17 @@ class Bottles
   end
 
   def verses(bottles_no_up, bottles_no_down)
-    _verses = []
-    bottles_no_up.downto(bottles_no_down) do |bottles_no|
-      _verses << verse(bottles_no)
-    end
-    _verses.join("\n")
+    bottles_no_up.downto(bottles_no_down).map do |bottles_no|
+      verse(bottles_no)
+    end.join("\n")
   end
 
   def verse(bottles_no)
-    verses = Array( main_phrase(bottles_no) )
-    verses << ending_phrase(bottles_no -1)
-    verses << ""
-
-    verses.join("\n")
+    [
+      main_phrase(bottles_no),
+      ending_phrase(bottles_no -1),
+      ""
+    ].join("\n")
   end
 
   private
@@ -26,6 +24,7 @@ class Bottles
     if bottles_no == 0
       return "No more bottles of beer on the wall, no more bottles of beer."
     end
+
     "#{bottles_no} bottle#{plural} of beer on the wall, #{bottles_no} bottle#{plural} of beer."
   end
 
